@@ -1,10 +1,10 @@
 ##############################################################################
 # Base stage                                                                 #
 ##############################################################################
-ARG DISTRO=debian
-ARG IMAGE_VERSION=bullseye
-ARG IMAGE_VARIANT=slim
-FROM $DISTRO:$IMAGE_VERSION-$IMAGE_VARIANT AS postgis-base
+ARG DISTRO=ubuntu 
+ARG IMAGE_VERSION=focal 
+ARG IMAGE_VARIANT="" 
+FROM $DISTRO:$IMAGE_VERSION AS postgis-base
 LABEL maintainer="Tim Sutton<tim@kartoza.com>"
 
 # Reset ARG for version
@@ -144,7 +144,7 @@ COPY scenario_tests/utils/requirements.txt /lib/utils/requirements.txt
 RUN set -eux \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
-    && apt-get -y --no-install-recommends install python3-pip \
+    && apt-get -y --no-install-recommends install python3-pip python3-dev \
     && apt-get -y --purge autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
